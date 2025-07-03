@@ -1,0 +1,73 @@
+Estadísticas descriptivas de precipitaciones
+==========================================
+
+Estación: P34
+count    82595.000000
+mean         0.138444
+std          0.484336
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.000000
+max         13.500000
+
+Estación: P63
+count    63182.000000
+mean         0.153023
+std          0.409171
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.100000
+max         17.900000
+
+Estación: M5023
+count    86112.000000
+mean         0.132725
+std          0.482753
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.000000
+max         11.500000
+
+Estación: M5025
+count    45581.000000
+mean         0.191209
+std          0.560991
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.100000
+max         15.000000
+
+Matriz de correlación entre estaciones:
+            P34       P63     M5023     M5025
+P34    1.000000  0.398590  0.888084  0.635640
+P63    0.398590  1.000000  0.381655  0.643603
+M5023  0.888084  0.381655  1.000000  0.598366
+M5025  0.635640  0.643603  0.598366  1.000000
+
+Eventos extremos detectados (picos y mínimos):
+=============================================
+
+Estación P34 - Umbral pico (95%): 0.800
+Estación P34 - Umbral mínimo (5%): 0.000
+Cantidad de picos: 4521
+Cantidad de mínimos: 63546
+
+Estación P63 - Umbral pico (95%): 0.700
+Estación P63 - Umbral mínimo (5%): 0.000
+Cantidad de picos: 3447
+Cantidad de mínimos: 38331
+
+Estación M5023 - Umbral pico (95%): 0.800
+Estación M5023 - Umbral mínimo (5%): 0.000
+Cantidad de picos: 4420
+Cantidad de mínimos: 66424
+
+Estación M5025 - Umbral pico (95%): 1.100
+Estación M5025 - Umbral mínimo (5%): 0.000
+Cantidad de picos: 2362
+Cantidad de mínimos: 32197
+

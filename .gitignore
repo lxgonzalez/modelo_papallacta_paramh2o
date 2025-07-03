@@ -1,0 +1,18 @@
+# Archivos de compilación de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Archivos de entorno virtual
+venv/
+env/
+ENV/
+.venv/
+.virtualenv/
+
+# Archivos de configuración de Visual Studio Code
+.vscode/
+
+
