@@ -217,15 +217,33 @@ La API utiliza modelos entrenados en 4 estaciones meteorológicas:
 
 ## 🧠 Análisis Agrícola con IA
 
-El análisis agrícola utiliza Google Gemini para proporcionar:
+El análisis agrícola utiliza Google Gemini optimizado para **respuestas concisas y directas**:
 
-1. **Evaluación Climática**: Análisis de las condiciones meteorológicas previstas
-2. **Recomendaciones de Cultivos**: Qué cultivos son más apropiados para las condiciones
-3. **Manejo del Riego**: Estrategias de riego basadas en precipitación prevista
-4. **Alertas Climáticas**: Identificación de riesgos como sequías o exceso de humedad
-5. **Cronograma Agrícola**: Momentos óptimos para siembra, cosecha y otras actividades
-6. **Manejo de Plagas**: Condiciones que podrían favorecer el desarrollo de plagas
-7. **Conservación del Suelo**: Medidas preventivas según las condiciones climáticas
+### 🎯 **Características del Análisis**:
+- **Respuestas cortas**: Máximo 2-3 oraciones por recomendación
+- **Información práctica**: Sin texto redundante o conectores innecesarios  
+- **Formato estructurado**: JSON con campos específicos
+- **Optimización automática**: Post-procesamiento para acortar respuestas largas
+
+### 📊 **Tipos de Análisis Disponibles**:
+
+1. **Evaluación Climática** (`general`): Resumen breve de condiciones esperadas
+2. **Recomendaciones de Cultivos** (`cultivos`): Lista de 5-7 cultivos apropiados
+3. **Manejo del Riego** (`riego`): Estrategias específicas de frecuencia y método
+4. **Alertas Climáticas** (`alertas`): Lista de riesgos específicos (heladas, hongos, etc.)
+5. **Cronograma Agrícola** (`cronograma`): Actividades recomendadas para el periodo
+6. **Manejo de Plagas** (`plagas`): Riesgos y prevención específica
+7. **Conservación del Suelo** (`suelo`): Medidas de conservación necesarias
+
+### ✨ **Ejemplo de Respuesta Optimizada**:
+
+```json
+{
+  "resumen_climatico": "Clima frío y húmedo. Riesgo de heladas por temperaturas mínimas. Alta humedad favorece hongos.",
+  "manejo_riego": "Riego ligero cada 3-4 días. Evitar encharcamiento por alta humedad. Usar goteo preferiblemente.",
+  "recomendaciones_cultivos": ["Papa", "Cebolla", "Ajo", "Arveja", "Habas"]
+}
+```
 
 ## 🔧 Desarrollo y Extensión
 

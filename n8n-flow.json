@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "webhook_whatsapp_in",
+      "name": "Webhook WhatsApp",
+      "type": "n8n-nodes-base.webhook",
+      "position": [300, 200],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-in",
+        "responseMode": "lastNode",
+        "options": {
+          "responseData": {
+            "responseFormat": "json",
+            "responseContent": {
+              "responseBody": "Mensaje recibido"
+            }
+          }
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "parse_options",
+      "name": "Parsear Opciones",
+      "type": "n8n-nodes-base.function",
+      "position": [500, 200],
+      "parameters": {
+        "functionCode": "const input = $json.Body.trim().toLowerCase();\nconst map = {\n  '1': 'general',\n  '2': 'cultivos',\n  '3': 'riego'\n};\n\nconst rawOptions = input.split(/[ ,]+/);\nconst selected = rawOptions.map(o => map[o] || o).filter(Boolean);\n\nreturn [{\n  json: {\n    date: \"2024-06-01\",\n    latitude: -0.35,\n    longitude: -78.17,\n    include_analysis: true,\n    analysis_types: selected,\n    from: $json.From\n  }\n}];"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "predict_api",
+      "name": "Enviar a API de predicción",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [700, 200],
+      "parameters": {
+        "url": "https://cc9b-45-162-74-25.ngrok-free.app/predict",
+        "method": "POST",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\n  \"date\": $json.date,\n  \"latitude\": $json.latitude,\n  \"longitude\": $json.longitude,\n  \"include_analysis\": $json.include_analysis,\n  \"analysis_types\": $json.analysis_types\n}"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "responder_whatsapp",
+      "name": "Responder a WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 200],
+      "parameters": {
+        "url": "=https://api.twilio.com/2010-04-01/Accounts/YOUR_ACCOUNT_SID/Messages.json",
+        "method": "POST",
+        "authentication": "basicAuth",
+        "responseFormat": "json",
+        "options": {},
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "From",
+              "value": "whatsapp:+14155238886"
+            },
+            {
+              "name": "To",
+              "value": "={{$json.from}}"
+            },
+            {
+              "name": "Body",
+              "value": "={{$json.body.message || 'Respuesta recibida'}}"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "your_twilio_credentials"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "webhook_whatsapp_in": {
+      "main": [
+        [
+          {
+            "node": "parse_options",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "parse_options": {
+      "main": [
+        [
+          {
+            "node": "predict_api",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "predict_api": {
+      "main": [
+        [
+          {
+            "node": "responder_whatsapp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "name": "WhatsApp Predicción"
+}
